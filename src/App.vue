@@ -11,7 +11,7 @@
 import { ref } from "vue";
 export default {
   name: "App",
-  setu() {
+  setup() {
     const model = ref("Hello Wold");
     return { model };
   },
