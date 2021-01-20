@@ -1,19 +1,31 @@
 <template>
   <div class="container grid-lg">
-    <input v-model="model" />
-    <h1>
-      {{ model }}
-    </h1>
+    <div class="card">
+      <div class="card-header">
+        <div class="h4">Todas as moedas</div>
+      </div>
+      <div class="card-body"></div>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, reactive, toRefs } from "vue";
+import api from "@/services/api";
+
 export default {
   name: "App",
   setup() {
-    const model = ref("Hello Wold");
-    return { model };
+    const data = reactive({
+      quotes: {},
+    });
+
+    onMounted(async () => {
+      const response = await api.all();
+      data.quotes = response.data;
+    });
+
+    return { ...toRefs(data) };
   },
 };
 </script>
