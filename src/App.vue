@@ -4,7 +4,10 @@
       <div class="card-header">
         <div class="h4">Acompanhando</div>
         <div class="card-body">
-          <WatchListQuotes :listen-quotes="listenQuotes" />
+          <WatchListQuotes
+            :listen-quotes="listenQuotes"
+            @unlisten="onUnlisten"
+          />
         </div>
       </div>
     </div>
@@ -17,7 +20,7 @@
           :quotes="quotes"
           :listen-quotes="listenQuotes"
           @listen="onListen"
-          @unlisten="onUnListen"
+          @unlisten="onUnlisten"
         />
       </div>
     </div>
@@ -33,6 +36,7 @@ import WatchListQuotes from "@/components/WatchListQuotes";
 export default {
   name: "App",
   components: { ListQuotes, WatchListQuotes },
+  emits: ["unlisten"],
   setup() {
     const data = reactive({
       quotes: {},
@@ -48,11 +52,11 @@ export default {
       data.listenQuotes.push(code);
     }
 
-    function onUnListen(code) {
+    function onUnlisten(code) {
       data.listenQuotes = data.listenQuotes.filter((key) => key !== code);
     }
 
-    return { ...toRefs(data), onListen, onUnListen };
+    return { ...toRefs(data), onListen, onUnlisten };
   },
 };
 </script>
